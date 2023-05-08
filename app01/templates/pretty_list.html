@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin-bottom: 10px" class="clearfix">
+            <a class="btn btn-success" href="/pretty/add/">
+                <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+                新建手機號
+            </a>
+            <div style="float: right;width: 300px">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="{{ search_data }}"
+                               value="{{ search_data }}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                用戶列表
+            </div>
+
+            <!-- Table -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>號碼</th>
+                    <th>價格</th>
+                    <th>級別</th>
+                    <th>狀態</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in queryset %}
+                    <tr>
+                        <th>{{ user.id }}</th>
+                        <td>{{ user.mobile }}</td>
+                        <td>{{ user.price }}</td>
+                        <td>{{ user.get_level_display }}</td>
+                        <td>{{ user.get_status_display }}</td>
+                        <td>
+                            <a class="btn btn-primary btn-xs" href="/pretty/edit/{{ user.id }}">編輯</a>
+                            <a class="btn btn-danger btn-xs" href="/pretty/del/{{ user.id }}">刪除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="clearfix">
+            <ul class="pagination">
+                {{ page_string }}
+
+            </ul>
+        </div>
+    </div>
+{% endblock %}

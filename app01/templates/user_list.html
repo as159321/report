@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin-bottom: 10px">
+            <a class="btn btn-success" href="/user/add">
+                <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+                新建用戶
+            </a>
+            <a class="btn btn-success" href="/user/model/form/add">
+                <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+                新建form用戶
+            </a>
+        </div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                用戶列表
+            </div>
+
+            <!-- Table -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>用戶名稱</th>
+                    <th>密碼</th>
+                    <th>age</th>
+                    <th>餘額</th>
+                    <th>入職時間</th>
+                    <th>性別</th>
+                    <th>部門</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in user_list %}
+                    <tr>
+                        <th>{{ user.id }}</th>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.password }}</td>
+                        <td>{{ user.age }}</td>
+                        <td>{{ user.account }}</td>
+                        <td>{{ user.create_time|date:"Y-m-d" }}</td>
+                        <td>{{ user.get_gender_display }}</td>
+                        <td>{{ user.depart.title }}</td>
+                        <td>
+                            <a class="btn btn-primary btn-xs" href="/user/edit/{{ user.id }}">編輯</a>
+                            <a class="btn btn-danger btn-xs" href="/user/del/{{ user.id }}">刪除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="clearfix">
+            <ul class="pagination">
+                {{ page_string }}
+
+            </ul>
+        </div>
+    </div>
+{% endblock %}
